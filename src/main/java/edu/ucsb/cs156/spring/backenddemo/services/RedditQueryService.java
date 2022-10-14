@@ -18,10 +18,23 @@ public class RedditQueryService {
         restTemplate = restTemplateBuilder.build();
     }
 
-    public static final String ENDPOINT = "";
+    public static final String ENDPOINT = "https://www.reddit.com/r/{subreddit}.json";
 
     public String getJSON(String subreddit) throws HttpClientErrorException {
-        return "";
+        log.info("subreddit={}", subreddit);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        headers.set("User-Agent","spring-boot:cs156-team01:f22")
+
+        Map<String, String> uriVariables = Map.of("subreddit", subreddit);
+
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+        ResponseEntity<String> re = restTemplate.exchange(ENDPOINT, HttpMethod.GET, entity, String.class,
+                uriVariables);
+        return re.getBody();
     }
 
    
