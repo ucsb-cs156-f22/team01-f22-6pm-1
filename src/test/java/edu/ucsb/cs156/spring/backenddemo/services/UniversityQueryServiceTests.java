@@ -13,20 +13,20 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 
-@RestClientTest(CountryCodeQueryService.class)
+@RestClientTest(UniversityQueryService.class)
 public class UniversityQueryServiceTests {
 
     @Autowired
     private MockRestServiceServer mockRestServiceServer;
 
     @Autowired
-    private CountryCodeQueryService countryCodeQueryService;
+    private UniversityQueryService universityQueryService;
 
     @Test
     public void test_getJSON() {
 
         String name = "Harvard";
-        String expectedURL = CountryCodeQueryService.ENDPOINT.replace("{name}", name);
+        String expectedURL = UniversityQueryService.ENDPOINT.replace("{name}", name);
 
         String fakeJsonResult = "{ \"fake\" : \"result\" }";
 
@@ -35,7 +35,7 @@ public class UniversityQueryServiceTests {
                 .andExpect(header("Content-Type", MediaType.APPLICATION_JSON.toString()))
                 .andRespond(withSuccess(fakeJsonResult, MediaType.APPLICATION_JSON));
 
-        String actualResult = countryCodeQueryService.getJSON(name);
+        String actualResult = universityQueryService.getJSON(name);
         assertEquals(fakeJsonResult, actualResult);
     }
 }
