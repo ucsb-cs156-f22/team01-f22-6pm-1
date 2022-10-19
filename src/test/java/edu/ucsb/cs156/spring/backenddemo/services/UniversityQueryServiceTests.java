@@ -38,4 +38,21 @@ public class UniversityQueryServiceTests {
         String actualResult = universityQueryService.getJSON(name);
         assertEquals(fakeJsonResult, actualResult);
     }
+
+    @Test
+    public void test_getJSON1() {
+
+        String name = "Stanford";
+        String expectedURL = UniversityQueryService.ENDPOINT.replace("{name}", name);
+
+        String fakeJsonResult = "{ \"fake\" : \"result\" }";
+
+        this.mockRestServiceServer.expect(requestTo(expectedURL))
+                .andExpect(header("Accept", MediaType.APPLICATION_JSON.toString()))
+                .andExpect(header("Content-Type", MediaType.APPLICATION_JSON.toString()))
+                .andRespond(withSuccess(fakeJsonResult, MediaType.APPLICATION_JSON));
+
+        String actualResult = universityQueryService.getJSON(name);
+        assertEquals(fakeJsonResult, actualResult);
+    }
 }
