@@ -27,7 +27,7 @@ public class UniversityController {
     @Autowired
     UniversityQueryService universityQueryService;
 
-    @ApiOperation(value="Get list of universities that match a given name", notes="Country data uploaded to OpenDataSoft by the International Labour Organization")
+    @ApiOperation(value="Get list of universities that match a given name", notes="Uses API documented here: http://universities.hipolabs.com/search")
     @GetMapping("/get")
     public ResponseEntity<String> getUniversity(
         @ApiParam("name to search, e.g. 'Harvard' or 'Stanford'") @RequestParam String name
