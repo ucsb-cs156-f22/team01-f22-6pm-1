@@ -6,8 +6,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 
-import edu.ucsb.cs156.spring.backenddemo.beans.LocationQueryService;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,12 +40,13 @@ public class LocationQueryServiceTests {
         String location = "Metropolitan France";
         String expectedURL = LocationQueryService.ENDPOINT.replace("{location}", location);
         
+        String fakeJsonResult = "{ \"fake\": \"result\" }";
+
         this.mockRestServiceServer.expect(requestTo(expectedURL))
                 .andExpect(header("Accept", MediaType.APPLICATION_JSON.toString()))
                 .andExpect(header("Content-Type", MediaType.APPLICATION_JSON.toString()))
                 .andRespond(withSuccess(fakeJsonResult, MediaType.APPLICATION_JSON));
-                
-        String fakeJsonResult = "{ \"fake\": \"result\" }";
+
         String actualResult = locationQueryService.getJSON(location);
         assertEquals(fakeJsonResult, actualResult);
     } 
