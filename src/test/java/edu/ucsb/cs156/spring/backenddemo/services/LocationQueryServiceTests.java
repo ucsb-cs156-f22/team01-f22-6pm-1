@@ -24,7 +24,8 @@ public class LocationQueryServiceTests {
 
     @Test
     public void test_getJSON(){
-        String location = "Metropolitan France";
+
+        String location = "Hogwarts";
         String expectedURL = LocationQueryService.ENDPOINT.replace("{location}", location);
         
         String fakeJsonResult = "{ \"fake\": \"result\" }";
