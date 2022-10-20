@@ -30,14 +30,14 @@ public class PublicHolidaysController {
     @Autowired
     PublicHolidayQueryService publicHolidayQueryService;
 
-    @ApiOperation(value = "Get earthquakes a certain distance from UCSB's Storke Tower", notes = "JSON return format documented here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php")
+    @ApiOperation(value = "Get public holidays given a country and a year")
     @GetMapping("/get")
-    public ResponseEntity<String> getEarthquakes(
-        @ApiParam("distance in km, e.g. 100") @RequestParam String distance,
-        @ApiParam("minimum magnitude, e.g. 2.5") @RequestParam String minMag
+    public ResponseEntity<String> getPublicHolidays(
+        @ApiParam("Country Code, Mexico = MX") @RequestParam String countryCode,
+        @ApiParam("Year, eg 2022") @RequestParam String year
     ) throws JsonProcessingException {
-        log.info("getEarthquakes: distance={} minMag={}", distance, minMag);
-        String result = earthquakeQueryService.getJSON(distance, minMag);
+        log.info("getPublicHolidays: countryCode={} year={}", countryCode, year);
+        String result = publicHolidayQueryService.getJSON(year, countryCode);
         return ResponseEntity.ok().body(result);
     }
 
