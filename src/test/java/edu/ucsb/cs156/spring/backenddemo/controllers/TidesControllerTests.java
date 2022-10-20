@@ -47,16 +47,16 @@ public class TidesControllerTests {
     String station = "9414290";
     when(mockTidesQueryService.getJSON(eq(beginDate),eq(endDate),eq(station))).thenReturn(fakeJsonResult);
 
-    String url = String.format("/api.tidesandcurrents.noaa.gov/api/prod/datagetter?application=ucsb-cs156&begin_date=%s&end_date=%s&station=%s&product=predictions&datum=mllw&units=english&time_zone=lst_ldt&interval=hilo&format=json",beginDate,endDate,station);
-    System.out.println("printing url");
-    System.out.println(url);
+    String url = String.format("/api/tides/get?beginDate=%1$s&endDate=%2$s&station=%3$s",beginDate,endDate,station);
+
+
     MvcResult response = mockMvc
         .perform( get(url).contentType("application/json"))
         .andExpect(status().isOk()).andReturn();
-    System.out.println("response retrieved");
+
     String responseString = response.getResponse().getContentAsString();
-    System.out.println("printing response string");
-    System.out.println(responseString);
+
+
     assertEquals(fakeJsonResult, responseString);
   }
 
