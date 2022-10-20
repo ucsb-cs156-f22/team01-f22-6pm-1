@@ -28,7 +28,7 @@ public class RedditQueryServiceTests {
     private RedditQueryService redditQueryService;
 
     @Test
-    public void test_getJSON() throws URISyntaxException, UnsupportedEncodingException, JsonProcessingException {
+    public void test_getJSON() {
 
         String subreddit = "memes";
         String expectedURL = RedditQueryService.ENDPOINT.replace("{subreddit}", subreddit);
