@@ -36,7 +36,7 @@ public class RedditQueryService {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        headers.set("User-Agent","spring-boot:cs156-team01:f22");
+        headers.set("User-Agent","spring-boot:cs156-team01:f22 (by /u/anonNarcissist)");
 
         Map<String, String> uriVariables = Map.of("subreddit", subreddit);
 
