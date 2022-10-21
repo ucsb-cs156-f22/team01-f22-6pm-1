@@ -30,10 +30,10 @@ public class RedditControllerTests {
     String subreddit = "memes";
     when(mockRedditQueryService.getJSON(eq(subreddit))).thenReturn(fakeJsonResult);
 
-    String url = String.format("/api/reddit/get");
+    String url = String.format("/api/reddit/get?subreddit=%s", subreddit);
 
     MvcResult response = mockMvc
-        .perform( get(url).contentType("application/json"))
+        .perform(get(url).contentType("application/json"))
         .andExpect(status().isOk()).andReturn();
 
     String responseString = response.getResponse().getContentAsString();

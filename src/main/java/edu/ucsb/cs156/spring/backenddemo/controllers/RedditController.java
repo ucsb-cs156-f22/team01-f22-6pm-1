@@ -18,15 +18,25 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api(description="Subreddits info from your mom")
+@Api(description = "Get posts from a subreddit on Reddit.com")
 @Slf4j
 @RestController
-@RequestMapping("/api/subreddits")
+@RequestMapping("/api/reddit")
 public class RedditController {
-    
+
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    RedditQueryService redditQueryService;
+    RedditQueryService RedditQueryService;
+
+    @ApiOperation(value = "Get subreddit info")
+    @GetMapping("/get")
+    public ResponseEntity<String> getSubreddit(
+        @ApiParam("Subreddit") @RequestParam String subreddit
+    ) throws JsonProcessingException {
+        log.info("getSubreddit: subreddit={}", subreddit);
+        String result = RedditQueryService.getJSON(subreddit);
+        return ResponseEntity.ok().body(result);
+    }
 
 }
